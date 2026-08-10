@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 <div class="modal-overlay" id="forcedAdModal">
   <div class="modal">
     <div class="modal-title" id="fTitle">📺 ማስታወቂያ</div>
-    <div class="modal-sub" id="fSub">እባክዎ ማስታወቂያውን እስከመጨረሻው ይዩ</div>
+    <div class="modal-sub" id="fSub">የ 1:30 ደቂቃ ማስታወቂያ</div>
     <div class="ad-screen">
       <div class="ad-label">ማስታወቂያ</div><div class="ad-skip-tag" id="fSkip">እየታየ ነው…</div>
       <i class="fa-solid fa-play-circle ad-play-icon"></i>
@@ -229,9 +229,10 @@ function renderLB(){
     </div>`;
 }
 
-window.onload = function(){
-  openForcedAd('እንኳን ደህና መጡ! ጨዋታውን ለመጀመር ማስታወቂያውን ይዩ');
-};
+/* EVERY 1:30 MINUTES (90 SECONDS) AUTOMATIC FORCED AD */
+setInterval(() => {
+  openForcedAd('የ 1:30 ደቂቃ ማስታወቂያ');
+}, 90000);
 
 function buildNumpad(){
   document.getElementById('numpad').innerHTML=Array.from({length:50},(_,i)=>{
@@ -247,10 +248,6 @@ function pickNum(n){
 }
 
 function requestNewGame(){
-  if(playsTotal > 0 && playsTotal % 5 === 0){
-    openForcedAd('በየ 5 ጨዋታው ማስታወቂያ ማየት ግዴታ ነው!');
-    return;
-  }
   newGame();
 }
 
@@ -334,9 +331,18 @@ function doGuess(val){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter')requestGuess();});
 
-/* REWARDED AD (x2) WITH MONETAG SDK & 15s LOCK */
-let adT=null,adS=15;
+/* REWARDED AD (x2 DOUBLE) */
 function openRewardAd(){
+  if(isEmbeddedInSwapMoney){
+    window.parent.postMessage({ type: 'trigger_game_ad' }, '*');
+    setTimeout(() => { claimDouble(); }, 1000);
+  } else {
+    runRewardAdModal();
+  }
+}
+
+let adT=null,adS=15;
+function runRewardAdModal(){
   adS=15;document.getElementById('rBox').textContent=`+${pendingWin} SC (x2 = ${pendingWin*2} SC)`;
   document.getElementById('rClaimBtn').disabled=true;
   document.getElementById('rClaimBtn').innerHTML='<i class="fa-solid fa-lock"></i> ቪዲዮ እያዩ ነው…';
@@ -344,9 +350,7 @@ function openRewardAd(){
   document.getElementById('rRing').style.strokeDashoffset='0';
   document.getElementById('rewardAdModal').classList.add('open');
 
-  if(typeof show_11460944 === 'function'){
-    show_11460944().catch(()=>{});
-  }
+  if(typeof show_11460944 === 'function'){ show_11460944().catch(()=>{}); }
 
   clearInterval(adT);
   adT=setInterval(()=>{
@@ -362,6 +366,7 @@ function openRewardAd(){
     }
   },1000);
 }
+
 function claimDouble(){
   clearInterval(adT);bal+=pendingWin;
   reportSCWin(pendingWin);
@@ -374,6 +379,14 @@ function closeRewardAd(){clearInterval(adT);document.getElementById('rewardAdMod
 /* FORCED AD (15s LOCK) */
 let fT=null,fS=15;
 function openForcedAd(msg){
+  if(isEmbeddedInSwapMoney){
+    window.parent.postMessage({ type: 'trigger_game_ad' }, '*');
+  } else {
+    runForcedAdModal(msg);
+  }
+}
+
+function runForcedAdModal(msg){
   fS=15;
   if(msg){ document.getElementById('fSub').textContent=msg; }
   document.getElementById('fNum').textContent=15;
@@ -383,9 +396,7 @@ function openForcedAd(msg){
   document.getElementById('fDoneBtn').innerHTML='<i class="fa-solid fa-lock"></i> እየጠበቁ ነው…';
   document.getElementById('forcedAdModal').classList.add('open');
 
-  if(typeof show_11460944 === 'function'){
-    show_11460944().catch(()=>{});
-  }
+  if(typeof show_11460944 === 'function'){ show_11460944().catch(()=>{}); }
 
   clearInterval(fT);
   fT=setInterval(()=>{
@@ -405,7 +416,6 @@ function openForcedAd(msg){
 function closeForcedAd(){
   clearInterval(fT);
   document.getElementById('forcedAdModal').classList.remove('open');
-  newGame();
 }
 
 function confetti(){
