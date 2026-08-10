@@ -6,6 +6,7 @@
 <title>ቁጥር ገምት – Swap Money</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src='//libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 <style>
 :root{--bg:#07080f;--surface:#0f1120;--card:#151829;--border:rgba(156,99,255,0.2);--purple:#9C63FF;--purple2:#6C35CC;--accent:#FF6B35;--gold:#FFD93D;--success:#06D6A0;--danger:#FF4D6D;--text:#EFF0F6;--muted:#7B7FA8}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -74,16 +75,10 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .ad-ring-wrap circle{fill:none;stroke-width:4}
 .ring-bg{stroke:rgba(255,255,255,.1)}.ring-fg{stroke:var(--purple);stroke-linecap:round;stroke-dasharray:138.2;transition:stroke-dashoffset .95s linear}
 .ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--purple)}
-.modal-title{font-size:17px;font-weight:700;margin-bottom:3px}
-.modal-sub{font-size:12px;color:var(--muted)}
 .reward-box{background:rgba(156,99,255,.08);border:1px solid rgba(156,99,255,.3);border-radius:10px;padding:10px;margin:10px 0;font-size:19px;font-weight:900;color:var(--purple)}
 .lb-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
 .lb-row:last-child{border-bottom:none}
-.lb-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.lb-rank.gold{background:linear-gradient(135deg,#FFD93D,#FFA41B);color:#000}
-.lb-rank.silver{background:linear-gradient(135deg,#b0b8c8,#8899aa);color:#000}
-.lb-rank.bronze{background:linear-gradient(135deg,#cd7f32,#a0522d);color:#fff}
-.lb-rank.other{background:var(--surface);color:var(--muted)}
+.lb-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff}
 .lb-name{flex:1;font-size:14px;font-weight:600}
 .lb-score{font-size:14px;font-weight:700;color:var(--purple)}
 .lb-you{font-size:10px;background:rgba(156,99,255,.2);border:1px solid var(--purple);border-radius:10px;padding:2px 7px;color:var(--purple);margin-left:4px}
@@ -105,19 +100,18 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
       <i class="fa-solid fa-play-circle ad-play-icon"></i>
       <div class="ad-ring-wrap">
         <svg viewBox="0 0 44 44" width="60" height="60"><circle class="ring-bg" cx="22" cy="22" r="22"/><circle class="ring-fg" id="rRing" cx="22" cy="22" r="22" stroke-dashoffset="0"/></svg>
-        <div class="ring-num" id="rNum">5</div>
+        <div class="ring-num" id="rNum">15</div>
       </div>
     </div>
     <div class="reward-box" id="rBox">+0 SC</div>
     <button id="rClaimBtn" onclick="claimDouble()" disabled style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:none;border-radius:30px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer"><i class="fa-solid fa-lock"></i> ቪዲዮ እያዩ ነው…</button>
-    <button onclick="closeRewardAd()" style="display:flex;align-items:center;justify-content:center;width:100%;padding:11px;border:1px solid var(--border);border-radius:30px;background:transparent;color:var(--muted);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px">ዝለሉ (x1 ብቻ)</button>
   </div>
 </div>
 
 <div class="modal-overlay" id="forcedAdModal">
   <div class="modal">
-    <div class="modal-title">📺 ማስታወቂያ መሆን አለበት</div>
-    <div class="modal-sub">ለቀጣዩ ጨዋታ ይህን ይዩ</div>
+    <div class="modal-title" id="fTitle">📺 ማስታወቂያ</div>
+    <div class="modal-sub" id="fSub">እባክዎ ማስታወቂያውን እስከመጨረሻው ይዩ</div>
     <div class="ad-screen">
       <div class="ad-label">ማስታወቂያ</div><div class="ad-skip-tag" id="fSkip">እየታየ ነው…</div>
       <i class="fa-solid fa-play-circle ad-play-icon"></i>
@@ -126,8 +120,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
         <div class="ring-num" id="fNum">15</div>
       </div>
     </div>
-    <div class="modal-sub" style="margin-top:6px">ካለቀ በኋላ ጨዋታው ይቀጥላል</div>
-    <button id="fDoneBtn" onclick="closeForcedAd()" disabled style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:none;border-radius:30px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px"><i class="fa-solid fa-lock"></i> እየጠበቁ ነዎ…</button>
+    <button id="fDoneBtn" onclick="closeForcedAd()" disabled style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:none;border-radius:30px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px"><i class="fa-solid fa-lock"></i> እየጠበቁ ነው…</button>
   </div>
 </div>
 
@@ -144,7 +137,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
   </div>
   <div class="card">
     <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> ቁጥር ገምት
-      <span style="margin-left:auto;font-size:11px;color:var(--muted)">1 SC = 0.50 ሳንቲም</span>
+      <span style="margin-left:auto;font-size:11px;color:var(--muted)">1 SC = 2.00 ETB</span>
     </div>
     <div class="reward-table">
       <div class="rt-cell" id="rt1"><div class="rt-n">20 SC</div><div class="rt-label">1ኛ ሙከራ</div></div>
@@ -179,32 +172,42 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 <div class="toast" id="toast"></div>
 
 <script>
+/* SWAP MONEY V3 INTEGRATION */
+const isEmbeddedInSwapMoney = window.parent !== window;
+function getStartingSCFromURL(){
+  const params = new URLSearchParams(window.location.search);
+  return parseFloat(params.get('sc')) || 0;
+}
+const startingSC = getStartingSCFromURL();
+
+function reportSCWin(amount){
+  if(!amount || amount <= 0) return;
+  if(isEmbeddedInSwapMoney){
+    window.parent.postMessage({ type: 'sc_earned', amount: amount }, '*');
+  }
+}
+
 const AC=new (window.AudioContext||window.webkitAudioContext)();
 function beep(f,d,t='sine',v=0.07){const o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}
 function playWin(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.2,'triangle',.12),i*100))}
 function playLose(){beep(200,.5,'sawtooth',.06)}
 
-const MAX_TRIES=7,FORCED_AD_INTERVAL=5*60*1000;
-let bal=+localStorage.getItem('ng4_bal')||0;
+const MAX_TRIES=7;
+let bal=startingSC > 0 ? startingSC : (+localStorage.getItem('ng4_bal')||0);
 let winStreak=+localStorage.getItem('ng4_streak')||0;
 let best=+localStorage.getItem('ng4_best')||0;
-let lastForcedAd=+localStorage.getItem('ng4_last_forced_ad')||Date.now();
+let playsTotal=+localStorage.getItem('ng4_plays')||0;
 let secret=0,triesLeft=MAX_TRIES,gameDone=false,pendingWin=0;
 let guessLog=[],lo=1,hi=50,selectedNum=null;
-let lb=JSON.parse(localStorage.getItem('ng4_lb')||JSON.stringify([
-  {name:'ሰሎሞን',score:96},{name:'ቤዛዊት',score:72},{name:'ናትኤል',score:50},{name:'ሄለን',score:34},{name:'ዳዊት',score:20}
-]));
 const ME='እርስዎ';
 
 function save(){
   localStorage.setItem('ng4_bal',bal);
   localStorage.setItem('ng4_streak',winStreak);
   localStorage.setItem('ng4_best',best);
-  localStorage.setItem('ng4_last_forced_ad',lastForcedAd);
-  localStorage.setItem('ng4_lb',JSON.stringify(lb));
 }
 function renderUI(){
-  document.getElementById('balEl').textContent=bal;
+  document.getElementById('balEl').textContent=bal.toFixed(2);
   document.getElementById('streakEl').textContent=winStreak;
   document.getElementById('bestEl').textContent=best;
   document.getElementById('rt1').classList.toggle('active',triesLeft===MAX_TRIES&&!gameDone);
@@ -218,13 +221,18 @@ function renderTries(){
   }).join('');
 }
 function renderLB(){
-  const s=[...lb].sort((a,b)=>b.score-a.score);
-  document.getElementById('lbList').innerHTML=s.map((e,i)=>{
-    const cls=i===0?'gold':i===1?'silver':i===2?'bronze':'other';
-    return`<div class="lb-row"><div class="lb-rank ${cls}">${i+1}</div><div class="lb-name">${e.name}${e.name===ME?'<span class="lb-you">እርስዎ</span>':''}</div><div class="lb-score">${e.score} SC</div></div>`;
-  }).join('');
+  document.getElementById('lbList').innerHTML=`
+    <div class="lb-row">
+      <div class="lb-rank">1</div>
+      <div class="lb-name">${ME}<span class="lb-you">እርስዎ</span></div>
+      <div class="lb-score">${bal.toFixed(2)} SC</div>
+    </div>`;
 }
-function updateLB(n){const m=lb.find(e=>e.name===ME);if(m)m.score+=n;else lb.push({name:ME,score:n});}
+
+window.onload = function(){
+  openForcedAd('እንኳን ደህና መጡ! ጨዋታውን ለመጀመር ማስታወቂያውን ይዩ');
+};
+
 function buildNumpad(){
   document.getElementById('numpad').innerHTML=Array.from({length:50},(_,i)=>{
     const n=i+1;return`<button class="np-btn" id="np${n}" onclick="pickNum(${n})">${n}</button>`;
@@ -237,11 +245,15 @@ function pickNum(n){
   const btn=document.getElementById('np'+n);if(btn)btn.classList.add('selected');
   document.getElementById('gInput').value=n;beep(300+n*8,.05,'sine',.04);
 }
-function adDue(){return Date.now()-lastForcedAd>=FORCED_AD_INTERVAL}
+
 function requestNewGame(){
-  if(adDue()){openForcedAd('new');return;}
+  if(playsTotal > 0 && playsTotal % 5 === 0){
+    openForcedAd('በየ 5 ጨዋታው ማስታወቂያ ማየት ግዴታ ነው!');
+    return;
+  }
   newGame();
 }
+
 function newGame(){
   secret=Math.floor(Math.random()*50)+1;
   triesLeft=MAX_TRIES;gameDone=false;guessLog=[];lo=1;hi=50;selectedNum=null;
@@ -258,13 +270,14 @@ function newGame(){
   document.getElementById('guessLog').innerHTML='';
   buildNumpad();renderTries();renderUI();
 }
+
 function requestGuess(){
   if(gameDone)return;
   const val=parseInt(document.getElementById('gInput').value);
   if(!val||val<1||val>50){toast2('1 እስከ 50 ያለ ቁጥር ይጻፉ','');return;}
-  if(adDue()){openForcedAd('guess',val);return;}
   doGuess(val);
 }
+
 function doGuess(val){
   document.getElementById('gInput').value='';
   const btn=document.getElementById('np'+val);if(btn)btn.disabled=true;
@@ -291,13 +304,14 @@ function doGuess(val){
   document.getElementById('rangeLabel').textContent=`ቁጥሩ ${lo}–${hi} ክልል ውስጥ ነው`;
   beep(diff<=3?700:diff<=10?500:300,.1,'sine',.06);
   if(val===secret){
-    gameDone=true;
+    gameDone=true;playsTotal++;
     document.getElementById('secretDisp').textContent=secret;
     document.getElementById('secretDisp').className='secret-num revealed';
     winStreak++;if(winStreak>best)best=winStreak;
     pendingWin=used<=1?20:used<=3?10:4;
     const bonus=winStreak>=5?2:1;pendingWin*=bonus;
-    bal+=pendingWin;updateLB(pendingWin);
+    bal+=pendingWin;
+    reportSCWin(pendingWin);
     const rb=document.getElementById('resultBanner');
     rb.className='result-banner win show';
     rb.innerHTML=`🎉 ${used} ሙከራ ውስጥ! +${pendingWin} SC አሸነፉ!${bonus>1?' (🔥 x'+bonus+')':''}`;
@@ -308,7 +322,7 @@ function doGuess(val){
     document.getElementById('tempFill').style.width='100%';document.getElementById('tempFill').style.background='var(--success)';
     playWin();confetti();
   }else if(triesLeft===0){
-    gameDone=true;winStreak=0;
+    gameDone=true;winStreak=0;playsTotal++;
     document.getElementById('secretDisp').textContent=secret;
     const rb=document.getElementById('resultBanner');
     rb.className='result-banner lose show';
@@ -320,48 +334,80 @@ function doGuess(val){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter')requestGuess();});
 
-let adT=null,adS=5;
+/* REWARDED AD (x2) WITH MONETAG SDK & 15s LOCK */
+let adT=null,adS=15;
 function openRewardAd(){
-  adS=5;document.getElementById('rBox').textContent=`+${pendingWin} SC (x2 = ${pendingWin*2} SC)`;
+  adS=15;document.getElementById('rBox').textContent=`+${pendingWin} SC (x2 = ${pendingWin*2} SC)`;
   document.getElementById('rClaimBtn').disabled=true;
   document.getElementById('rClaimBtn').innerHTML='<i class="fa-solid fa-lock"></i> ቪዲዮ እያዩ ነው…';
-  document.getElementById('rNum').textContent=5;document.getElementById('rSkip').textContent='ይዩ…';
+  document.getElementById('rNum').textContent=15;document.getElementById('rSkip').textContent='እየታየ ነው…';
   document.getElementById('rRing').style.strokeDashoffset='0';
   document.getElementById('rewardAdModal').classList.add('open');
+
+  if(typeof show_11460944 === 'function'){
+    show_11460944().catch(()=>{});
+  }
+
+  clearInterval(adT);
   adT=setInterval(()=>{
     adS--;document.getElementById('rNum').textContent=adS;
-    document.getElementById('rRing').style.strokeDashoffset=`${138.2*(5-adS)/5}`;
-    beep(320+adS*30,.05,'sine',.04);
-    if(adS<=0){clearInterval(adT);document.getElementById('rClaimBtn').disabled=false;document.getElementById('rClaimBtn').innerHTML='<i class="fa-solid fa-coins"></i> ሽልማቱን ውሰዱ (+'+pendingWin+' SC ተጨማሪ)';document.getElementById('rSkip').textContent='✓ ተጠናቀቀ';playWin();}
+    document.getElementById('rRing').style.strokeDashoffset=`${138.2*(15-adS)/15}`;
+    beep(320+adS*20,.05,'sine',.04);
+    if(adS<=0){
+      clearInterval(adT);
+      document.getElementById('rClaimBtn').disabled=false;
+      document.getElementById('rClaimBtn').innerHTML='<i class="fa-solid fa-coins"></i> x2 ሽልማቱን ውሰዱ (+'+pendingWin+' SC)';
+      document.getElementById('rSkip').textContent='✓ ተጠናቀቀ';
+      playWin();
+    }
   },1000);
 }
 function claimDouble(){
-  clearInterval(adT);bal+=pendingWin;updateLB(pendingWin);save();renderUI();renderLB();closeRewardAd();
+  clearInterval(adT);bal+=pendingWin;
+  reportSCWin(pendingWin);
+  save();renderUI();renderLB();closeRewardAd();
   toast2('🎉 x2! +'+pendingWin+' SC ተጨምሯል','g');
   document.getElementById('doubleBtn').style.display='none';
 }
 function closeRewardAd(){clearInterval(adT);document.getElementById('rewardAdModal').classList.remove('open');}
 
-let fT=null,fS=15,fAfter=null,fVal=null;
-function openForcedAd(after,val=null){
-  lastForcedAd=Date.now();save();
-  fAfter=after;fVal=val;fS=15;
-  document.getElementById('fNum').textContent=15;document.getElementById('fSkip').textContent='እየታየ ነው…';
+/* FORCED AD (15s LOCK) */
+let fT=null,fS=15;
+function openForcedAd(msg){
+  fS=15;
+  if(msg){ document.getElementById('fSub').textContent=msg; }
+  document.getElementById('fNum').textContent=15;
+  document.getElementById('fSkip').textContent='እየታየ ነው…';
   document.getElementById('fRing').style.strokeDashoffset='0';
   document.getElementById('fDoneBtn').disabled=true;
-  document.getElementById('fDoneBtn').innerHTML='<i class="fa-solid fa-lock"></i> እየጠበቁ ነዎ…';
+  document.getElementById('fDoneBtn').innerHTML='<i class="fa-solid fa-lock"></i> እየጠበቁ ነው…';
   document.getElementById('forcedAdModal').classList.add('open');
+
+  if(typeof show_11460944 === 'function'){
+    show_11460944().catch(()=>{});
+  }
+
+  clearInterval(fT);
   fT=setInterval(()=>{
     fS--;document.getElementById('fNum').textContent=fS;
     document.getElementById('fRing').style.strokeDashoffset=`${138.2*(15-fS)/15}`;
     beep(300+fS*10,.04,'sine',.03);
-    if(fS<=0){clearInterval(fT);document.getElementById('fDoneBtn').disabled=false;document.getElementById('fDoneBtn').innerHTML='<i class="fa-solid fa-check"></i> ማስታወቂያ ታይቷል — ቀጥሉ';document.getElementById('fSkip').textContent='✓ ተጠናቀቀ';playWin();}
+    if(fS<=0){
+      clearInterval(fT);
+      document.getElementById('fDoneBtn').disabled=false;
+      document.getElementById('fDoneBtn').innerHTML='<i class="fa-solid fa-check"></i> ማስታወቂያ ታይቷል — ቀጥሉ';
+      document.getElementById('fSkip').textContent='✓ ተጠናቀቀ';
+      playWin();
+    }
   },1000);
 }
+
 function closeForcedAd(){
-  clearInterval(fT);document.getElementById('forcedAdModal').classList.remove('open');
-  if(fAfter==='new')newGame();else if(fAfter==='guess'&&fVal)doGuess(fVal);
+  clearInterval(fT);
+  document.getElementById('forcedAdModal').classList.remove('open');
+  newGame();
 }
+
 function confetti(){
   const c=document.getElementById('cCanvas'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
   const cols=['#9C63FF','#CC6BFF','#FFD93D','#06D6A0','#FF6B35','#fff'];
