@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ቁጥር ገምት – Swap Money</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -10,17 +10,17 @@
 <style>
 :root{--bg:#07080f;--surface:#0f1120;--card:#151829;--border:rgba(156,99,255,0.2);--purple:#9C63FF;--purple2:#6C35CC;--accent:#FF6B35;--gold:#FFD93D;--success:#06D6A0;--danger:#FF4D6D;--text:#EFF0F6;--muted:#7B7FA8}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh;width:100vw;overflow-x:hidden}
 .hdr{background:linear-gradient(160deg,#100818,#1a0f28);border-bottom:1px solid var(--border);padding:13px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50}
 .hdr-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:16px}
 .hdr-title{font-size:17px;font-weight:700}.hdr-title span{color:var(--purple)}
 .hdr-bal{margin-left:auto;background:rgba(156,99,255,.1);border:1px solid rgba(156,99,255,.3);border-radius:30px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--purple);display:flex;align-items:center;gap:6px}
-.page{padding:16px;max-width:400px;margin:0 auto}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.6);margin-bottom:14px}
-.card-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.page{padding:12px;width:100%;max-width:100%;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px 14px;box-shadow:0 8px 32px rgba(0,0,0,.6);margin-bottom:14px;width:100%}
+.card-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .card-title i{color:var(--purple)}
-.pills{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.pill{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.pill{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 10px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px}
 .pill b{color:var(--purple)}.pill.streak b{color:var(--success)}
 .num-display{background:var(--surface);border-radius:16px;padding:18px;text-align:center;margin:0 0 12px;border:1px solid var(--border)}
 .secret-num{font-size:60px;font-weight:900;background:linear-gradient(135deg,var(--purple),#CC6BFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
@@ -52,7 +52,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .rt-cell{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center}
 .rt-cell.active{border-color:var(--success);background:rgba(6,214,160,.08)}
 .rt-n{font-size:15px;font-weight:900;color:var(--purple)}.rt-label{font-size:10px;color:var(--muted);margin-top:2px}
-.result-banner{display:none;border-radius:13px;padding:13px 16px;text-align:center;font-weight:700;font-size:17px;margin-top:10px}
+.result-banner{display:none;border-radius:13px;padding:13px 16px;text-align:center;font-weight:700;font-size:16px;margin-top:10px}
 .result-banner.show{display:block}
 .result-banner.win{background:rgba(6,214,160,.1);border:1px solid var(--success);color:var(--success)}
 .result-banner.lose{background:rgba(255,77,109,.08);border:1px solid var(--danger);color:var(--danger)}
@@ -64,7 +64,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .glog-hint{font-size:11px;font-weight:600;min-width:70px;text-align:right}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:300;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px;width:min(340px,90vw);text-align:center;transform:scale(.9);transition:transform .3s;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px;width:min(340px,92vw);text-align:center;transform:scale(.9);transition:transform .3s;box-shadow:0 20px 60px rgba(0,0,0,.8)}
 .modal-overlay.open .modal{transform:scale(1)}
 .ad-screen{background:#100818;border-radius:14px;height:170px;margin:14px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--border);position:relative}
 .ad-label{position:absolute;top:8px;left:10px;font-size:10px;color:var(--muted);background:rgba(0,0,0,.6);padding:2px 8px;border-radius:10px}
@@ -79,8 +79,8 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .lb-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
 .lb-row:last-child{border-bottom:none}
 .lb-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff}
-.lb-name{flex:1;font-size:14px;font-weight:600}
-.lb-score{font-size:14px;font-weight:700;color:var(--purple)}
+.lb-name{flex:1;font-size:13.5px;font-weight:600}
+.lb-score{font-size:13.5px;font-weight:700;color:var(--purple)}
 .lb-you{font-size:10px;background:rgba(156,99,255,.2);border:1px solid var(--purple);border-radius:10px;padding:2px 7px;color:var(--purple);margin-left:4px}
 #cCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--border);border-radius:30px;padding:10px 22px;font-size:13px;font-weight:600;z-index:998;white-space:nowrap;transition:transform .3s}
@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 <div class="modal-overlay" id="forcedAdModal">
   <div class="modal">
     <div class="modal-title" id="fTitle">📺 ማስታወቂያ</div>
-    <div class="modal-sub" id="fSub">የ 1:30 ደቂቃ ማስታወቂያ</div>
+    <div class="modal-sub" id="fSub">የ 15 ሰከንድ ማስታወቂያ</div>
     <div class="ad-screen">
       <div class="ad-label">ማስታወቂያ</div><div class="ad-skip-tag" id="fSkip">እየታየ ነው…</div>
       <i class="fa-solid fa-play-circle ad-play-icon"></i>
@@ -172,7 +172,22 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 <div class="toast" id="toast"></div>
 
 <script>
-/* SWAP MONEY V3 INTEGRATION */
+/* IN-APP INTERSTITIAL AD INITIALIZATION */
+if (typeof show_11460944 === 'function') {
+  try {
+    show_11460944({
+      type: 'inApp',
+      inAppSettings: {
+        frequency: 2,
+        capping: 0.1,
+        interval: 30,
+        timeout: 5,
+        everyPage: false
+      }
+    });
+  } catch(e) {}
+}
+
 const isEmbeddedInSwapMoney = window.parent !== window;
 function getStartingSCFromURL(){
   const params = new URLSearchParams(window.location.search);
@@ -229,10 +244,10 @@ function renderLB(){
     </div>`;
 }
 
-/* EVERY 1:30 MINUTES (90 SECONDS) AUTOMATIC FORCED AD */
-setInterval(() => {
-  openForcedAd('የ 1:30 ደቂቃ ማስታወቂያ');
-}, 90000);
+/* FORCED AD AFTER 1 MINUTE OF ENTERING GAME */
+setTimeout(() => {
+  openForcedAd('ከ1 ደቂቃ በኋላ የመጣ ማስታወቂያ');
+}, 60000);
 
 function buildNumpad(){
   document.getElementById('numpad').innerHTML=Array.from({length:50},(_,i)=>{
@@ -248,6 +263,13 @@ function pickNum(n){
 }
 
 function requestNewGame(){
+  /* FORCED AD EVERY 10 PLAYS */
+  if(playsTotal > 0 && playsTotal % 10 === 0){
+    openForcedAd('የ 10 ጨዋታዎች ማስታወቂያ');
+    playsTotal++;
+    save();
+    return;
+  }
   newGame();
 }
 
@@ -331,11 +353,14 @@ function doGuess(val){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter')requestGuess();});
 
-/* REWARDED AD (x2 DOUBLE) */
+/* REWARDED AD (x2 DOUBLE) WITH MONETAG REWARDED POPUP */
 function openRewardAd(){
-  if(isEmbeddedInSwapMoney){
-    window.parent.postMessage({ type: 'trigger_game_ad' }, '*');
-    setTimeout(() => { claimDouble(); }, 1000);
+  if (typeof show_11460944 === 'function') {
+    show_11460944('pop').then(() => {
+      claimDouble();
+    }).catch(() => {
+      runRewardAdModal();
+    });
   } else {
     runRewardAdModal();
   }
@@ -349,8 +374,6 @@ function runRewardAdModal(){
   document.getElementById('rNum').textContent=15;document.getElementById('rSkip').textContent='እየታየ ነው…';
   document.getElementById('rRing').style.strokeDashoffset='0';
   document.getElementById('rewardAdModal').classList.add('open');
-
-  if(typeof show_11460944 === 'function'){ show_11460944().catch(()=>{}); }
 
   clearInterval(adT);
   adT=setInterval(()=>{
@@ -379,11 +402,7 @@ function closeRewardAd(){clearInterval(adT);document.getElementById('rewardAdMod
 /* FORCED AD (15s LOCK) */
 let fT=null,fS=15;
 function openForcedAd(msg){
-  if(isEmbeddedInSwapMoney){
-    window.parent.postMessage({ type: 'trigger_game_ad' }, '*');
-  } else {
-    runForcedAdModal(msg);
-  }
+  runForcedAdModal(msg);
 }
 
 function runForcedAdModal(msg){
